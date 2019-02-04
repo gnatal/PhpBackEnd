@@ -1,0 +1,4 @@
+# Blocks Outside Access
+Order Allow,Deny
+Deny from all
+# END
