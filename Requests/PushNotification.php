@@ -3,7 +3,7 @@ require_once "../Includes/Headers.php";
 
 class PushNotification{
 
-    private static $AuthKey = "AIzaSyB2JPOEk9gd8kptmiCfmdEdvFXewjnroX8";
+    private static $AuthKey = "<YourAuthKey>";
 
     public function SendMessageToTopic($data){
         $url = 'https://fcm.googleapis.com/fcm/send';
@@ -17,8 +17,6 @@ class PushNotification{
         );
         
     
-        // 'registration_id'    => "fYSzSRTyEnl:APA91bFfzXsU6iz8RlwZqbR2OFXp8vOpykkltQji2olpmBcabC1QfN4FlZaM2ZdhWgpPHVbapfvG4GJqpWavTQ1TBVSn7eSmhhq2x0d1YJlaeTU6c7_1llM4H7CiYjO2Lcl8cFGcgrFZ",
-        //to send to a specific device use registration id instead
 
         $fields = array(
             'to' => '/topics/'.$data['topic'],
