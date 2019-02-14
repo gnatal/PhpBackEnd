@@ -18,7 +18,8 @@ class Database{
     }
 
     private function GetConfigData(){
-        $config = parse_ini_file("../Configs/database.ini");
+        //$config = parse_ini_file("../../../InovatechConfig.ini");
+        $config = parse_ini_file("../Configs/InovatechConfig.ini");
         $dataConnect = array(
             'dsn' => $config['dsn'],
             'user' => $config['user'],
@@ -36,25 +37,22 @@ class Database{
         $Statement->execute();
         $e = self::GetError();
         $Result = array();
-        if ($e[0] !='0'){
+        if ($e[0]=='0'){
+            $i = 0;
+		    while ($linha = $Statement->fetch(PDO::FETCH_NAMED)){
+                $Result[$i] = $linha; 
+                $i++;
+            }
+        }
+        else {   
             error_log("Erro na Query: " . json_encode($e). ".
             Query realizada: " . $sql, 0); 
             return array(
                 'code' => 1,
                 'message' => $e
-            );      $i = 0;
+            );
         }
-        
-        while ($linha = $Statement->fetch(PDO::FETCH_NAMED)){
-            $Result[$i] = $linha; 
-            $i++;
-        }
-                
-        return array(
-            'code' => '0',
-            'data' => $Result,
-            'message' => 'sucess'
-        );    
+        return $Result;    
     }
 
     public function Query($sql){
